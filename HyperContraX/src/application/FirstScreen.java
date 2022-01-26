@@ -27,6 +27,8 @@ public class FirstScreen implements Initializable{
     @FXML
     void ButtonPlay(ActionEvent event) throws Exception{
     	//Add SecondScreen
+    	String name = Player_Name.getText();
+    	new SecondScreen(name);	
     }
 
     @FXML

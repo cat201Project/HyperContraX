@@ -48,3 +48,46 @@ public class SecondScreen extends Stage{
 			new Image("https://drive.google.com/uc?export=view&id=1d2Ihsuoz1pJKDePpuKZIrbJKp7owPTQz")
 	};
 	
+	final int MAX_BOMBS = 10,  MAX_SHOTS = MAX_BOMBS * 2;
+	boolean gameOver = false;
+	private GraphicsContext gc;
+	
+	
+	Rocket player;
+	List<Shot> shots;
+	List<Universe> univ;
+	List<Bomb> Bombs;
+	
+	private double mouseX;
+	private int score;
+	VBox y = new VBox();
+	Connection con;
+	PreparedStatement pst;
+
+
+	//start
+	SecondScreen(String name){
+		y.getChildren();
+		Canvas canvas = new Canvas(WIDTH, HEIGHT);
+		gc = canvas.getGraphicsContext2D();
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> run(gc,name)));
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
+		canvas.setCursor(Cursor.MOVE);
+		canvas.setOnMouseMoved(e -> mouseX = e.getX());
+		canvas.setOnMouseClicked(e -> {
+			if(shots.size() < MAX_SHOTS) shots.add(player.shoot());
+			if(gameOver) { 
+				gameOver = false;
+				extracted();
+				//setup();
+			}
+		});
+		setup();
+		this.setScene(new Scene(new StackPane(canvas)));
+		this.setTitle("Space Invaders");
+		this.show();
+	}
+	
+}
+	
