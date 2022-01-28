@@ -26,19 +26,19 @@ public class SecondScreen extends Stage {
 	private static final Random RAND = new Random();
 	private static final int WIDTH = 600;
 	private static final int HEIGHT = 600;
-	private static final int PLAYER_SIZE = 70;
+	private static final int userSize = 70;
 	// User image & variable.
-	static final Image PLAYER_IMG = new Image(
+	static final Image PLAYER_PLANE = new Image(
 			"https://drive.google.com/uc?export=view&id=1lLPxyXTVjJN5iBy5TpfPufXsWERSO7ph");
-	static final Image EXPLOSION_IMG = new Image(
+	static final Image IMAGE_EXPLOSION = new Image(
 			"https://drive.google.com/uc?export=view&id=1amqhqupVnR5oG6J2EK6PNZ7G9Gq4aAyl");
-	static final int EXPLOSION_WIDTH = 128;
-	static final int EXPLOSION_ROWS = 3;
-	static final int EXPLOSION_COL = 3;
-	static final int EXPLOSION_HEIGHT = 128;
-	static final int EXPLOSION_STEPS = 15;
+	static final int WIDTH_EXPLOSION = 128;
+	static final int ROWS_EXPLOSION = 3;
+	static final int COL_EXPLOSION = 3;
+	static final int HEIGHT_EXPLOSION = 128;
+	static final int STEPS_EXPLOSION = 15;
 	// Enemy image.
-	static final Image BOMBS_IMG[] = {
+	static final Image IMAGE_ENEMIES[] = {
 			new Image("https://drive.google.com/uc?export=view&id=17rRyuVL5hiCVTNiDuPWqsSgr2UxXP7AI"),
 			new Image("https://drive.google.com/uc?export=view&id=1AgsZz6Ik4pMDT653hPDgM5IHDXThOtAr"),
 			new Image("https://drive.google.com/uc?export=view&id=1RFQYMdvhZJjSxVwMsBuLoz3sc2rgWDcX"),
@@ -49,18 +49,18 @@ public class SecondScreen extends Stage {
 			new Image("https://drive.google.com/uc?export=view&id=1jvy4JClKyZbuSzQ5YrP258qxM9wKbqdc"),
 			new Image("https://drive.google.com/uc?export=view&id=10Hbmv9Hm-QqtrmhPwfdp6aVqN98HqcR4"),
 			new Image("https://drive.google.com/uc?export=view&id=1d2Ihsuoz1pJKDePpuKZIrbJKp7owPTQz") };
-	final int MAX_BOMBS = 10, MAX_SHOTS = MAX_BOMBS * 2;
-	boolean gameOver = false;
-	private GraphicsContext gc;
-
-	Rocket player;
-	List<Shot> shots;
-	List<Universe> univ;
+	final int MAXIMUM_BOMBS = 10, MAX_BULLETS = MAXIMUM_BOMBS * 2;
+	boolean gameEnd = false;
+	private GraphicsContext graphicsCtxt;
+	
+	Rocket user;
+	List<Shot> bullets;
+	List<Universe> galaxy;
 	List<Bomb> Bombs;
 
-	private double mouseX;
+	private double x_mouse;
 	private int score;
-	private String playerName;
+	private String userName;
 	VBox y = new VBox();
 
 
@@ -68,20 +68,20 @@ public class SecondScreen extends Stage {
 	SecondScreen(String name) {
 		y.getChildren();
 		Canvas canvas = new Canvas(WIDTH, HEIGHT);
-		gc = canvas.getGraphicsContext2D();
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> run(gc)));
+		graphicsCtxt = canvas.getGraphicsContext2D();
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> run(graphicsCtxt)));
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.play();
 		canvas.setCursor(Cursor.MOVE);
-		canvas.setOnMouseMoved(e -> mouseX = e.getX());
+		canvas.setOnMouseMoved(e -> x_mouse = e.getX());
 		canvas.setOnMouseClicked(e -> {
-			if (shots.size() < MAX_SHOTS)
-				shots.add(player.shoot());
-			if (gameOver) {
-				gameOver = false;
+			if (bullets.size() < MAX_BULLETS)
+				bullets.add(user.shoot());
+			if (gameEnd) {
+				gameEnd = false;
 				extracted();
 				try {
-					PlayerHighScore(playerName,score);
+					PlayerHighScore(userName,score);
 				} 
 				catch (Exception ex) {}
 			}
@@ -99,46 +99,46 @@ public class SecondScreen extends Stage {
 
 	// Setup the game size object
 	private void setup(String name) {
-		univ = new ArrayList<>();
-		shots = new ArrayList<>();
+		galaxy = new ArrayList<>();
+		bullets = new ArrayList<>();
 		Bombs = new ArrayList<>();
-		player = new Rocket(WIDTH / 2, HEIGHT - PLAYER_SIZE, PLAYER_SIZE, PLAYER_IMG);
+		user = new Rocket(WIDTH / 2, HEIGHT - userSize, userSize, PLAYER_PLANE);
 		score = 0;
-		playerName = name;
-		IntStream.range(0, MAX_BOMBS).mapToObj(i -> this.newBomb()).forEach(Bombs::add);
+		userName = name;
+		IntStream.range(0, MAXIMUM_BOMBS).mapToObj(i -> this.newBomb()).forEach(Bombs::add);
 	}
 
 	// To run the graphic
-	private void run(GraphicsContext gc) {
-		gc.setFill(Color.grayRgb(20));
-		gc.fillRect(0, 0, WIDTH, HEIGHT);
-		gc.setTextAlign(TextAlignment.CENTER);
-		gc.setFont(Font.font(20));
-		gc.setFill(Color.WHITE);
-		gc.fillText("Score: " + score, 60, 20);
+	private void run(GraphicsContext graphicsCtxt) {
+		graphicsCtxt.setFill(Color.grayRgb(20));
+		graphicsCtxt.fillRect(0, 0, WIDTH, HEIGHT);
+		graphicsCtxt.setTextAlign(TextAlignment.CENTER);
+		graphicsCtxt.setFont(Font.font(20));
+		graphicsCtxt.setFill(Color.WHITE);
+		graphicsCtxt.fillText("Score: " + score, 60, 20);
 
 		// If user get killed & back to main page when click the application.
-		if (gameOver) {
-			gc.setFont(Font.font(35));
-			gc.setFill(Color.YELLOW);
-			gc.fillText("Game Over \n Your Score is: " + score + " \n Click to play again", WIDTH / 2, HEIGHT / 2.5);
+		if (gameEnd) {
+			graphicsCtxt.setFont(Font.font(35));
+			graphicsCtxt.setFill(Color.YELLOW);
+			graphicsCtxt.fillText("Game Over \n Your Score is: " + score + " \n Click to play again", WIDTH / 2, HEIGHT / 2.5);
 		}
 
-		univ.forEach(Universe::draw);
-		player.update();
-		player.draw();
-		player.posX = (int) mouseX;
+		galaxy.forEach(Universe::draw);
+		user.update();
+		user.draw();
+		user.posX = (int) x_mouse;
 
 		Bombs.stream().peek(Rocket::update).peek(Rocket::draw).forEach(e -> {
-			if (player.colide(e) && !player.exploding) {
-				player.explode();
+			if (user.colide(e) && !user.exploding) {
+				user.explode();
 			}
 		});
 
-		for (int i = shots.size() - 1; i >= 0; i--) {
-			Shot shot = shots.get(i);
+		for (int i = bullets.size() - 1; i >= 0; i--) {
+			Shot shot = bullets.get(i);
 			if (shot.posY < 0 || shot.toRemove) {
-				shots.remove(i);
+				bullets.remove(i);
 				continue;
 			}
 			shot.update();
@@ -158,13 +158,13 @@ public class SecondScreen extends Stage {
 			}
 		}
 
-		gameOver = player.destroyed;
+		gameEnd = user.destroyed;
 		if (RAND.nextInt(10) > 2) {
-			univ.add(new Universe());
+			galaxy.add(new Universe());
 		}
-		for (int i = 0; i < univ.size(); i++) {
-			if (univ.get(i).posY > HEIGHT)
-				univ.remove(i);
+		for (int i = 0; i < galaxy.size(); i++) {
+			if (galaxy.get(i).posY > HEIGHT)
+				galaxy.remove(i);
 		}
 		
 	}
@@ -194,17 +194,17 @@ public class SecondScreen extends Stage {
 		public void update() {
 			if (exploding)
 				explosionStep++;
-			destroyed = explosionStep > EXPLOSION_STEPS;
+			destroyed = explosionStep > STEPS_EXPLOSION;
 		}
 
 		// Explosion image & size
 		public void draw() {
 			if (exploding) {
-				gc.drawImage(EXPLOSION_IMG, explosionStep % EXPLOSION_COL * EXPLOSION_WIDTH,
-						(explosionStep / EXPLOSION_ROWS) * EXPLOSION_HEIGHT + 1, EXPLOSION_WIDTH, EXPLOSION_HEIGHT,
+				graphicsCtxt.drawImage(IMAGE_EXPLOSION, explosionStep % COL_EXPLOSION * WIDTH_EXPLOSION,
+						(explosionStep / ROWS_EXPLOSION) * HEIGHT_EXPLOSION + 1, WIDTH_EXPLOSION, HEIGHT_EXPLOSION,
 						posX, posY, size, size);
 			} else {
-				gc.drawImage(img, posX, posY, size, size);
+				graphicsCtxt.drawImage(img, posX, posY, size, size);
 			}
 		}
 
@@ -259,13 +259,13 @@ public class SecondScreen extends Stage {
 
 		// Bullet color and change when hit specific score.
 		public void draw() {
-			gc.setFill(Color.RED);
+			graphicsCtxt.setFill(Color.RED);
 			if (score >= 50 && score <= 70 || score >= 120) {
-				gc.setFill(Color.YELLOWGREEN);
+				graphicsCtxt.setFill(Color.YELLOWGREEN);
 				speed = 50;
-				gc.fillRect(posX - 5, posY - 10, size + 10, size + 30);
+				graphicsCtxt.fillRect(posX - 5, posY - 10, size + 10, size + 30);
 			} else {
-				gc.fillOval(posX, posY, size, size);
+				graphicsCtxt.fillOval(posX, posY, size, size);
 			}
 		}
 
@@ -303,22 +303,22 @@ public class SecondScreen extends Stage {
 				opacity -= 0.01;
 			if (opacity < 0.1)
 				opacity += 0.01;
-			gc.setFill(Color.rgb(r, g, b, opacity));
-			gc.fillOval(posX, posY, w, h);
+			graphicsCtxt.setFill(Color.rgb(r, g, b, opacity));
+			graphicsCtxt.fillOval(posX, posY, w, h);
 			posY += 20;
 		}
 	}
 
 	// Appear random bomb at the screen
 	Bomb newBomb() {
-		return new Bomb(50 + RAND.nextInt(WIDTH - 100), 0, PLAYER_SIZE, BOMBS_IMG[RAND.nextInt(BOMBS_IMG.length)]);
+		return new Bomb(50 + RAND.nextInt(WIDTH - 100), 0, userSize, IMAGE_ENEMIES[RAND.nextInt(IMAGE_ENEMIES.length)]);
 	}
 
 	int distance(int x1, int y1, int x2, int y2) {
 		return (int) Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
 	}
 
-	// Save player name and score into the database 
+	// Save user name and score into the database 
 	public void PlayerHighScore (String name, int score2) throws ClassNotFoundException{
 		
 		String stdScore = String.valueOf(score2);
