@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="633.0" style="-fx-background-image: url('https://drive.google.com/uc?export=view&amp;id=1u6Bhx6NVax7gRy72y5OJSMFUOMaAKRU6');" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FirstStage">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="633.0" style="-fx-background-image: url('https://drive.google.com/uc?export=view&amp;id=1u6Bhx6NVax7gRy72y5OJSMFUOMaAKRU6');" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FirstScreen">
    <children>
       <Label layoutX="142.0" layoutY="33.0" text="HYPER CONTRA X" textFill="WHITE">
          <font>
