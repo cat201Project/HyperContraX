@@ -1,3 +1,13 @@
+/* Group 18 CAT PROJECT 2022
+ * 
+ * GROUP MEMBERS :-
+ * 1. HAZIQ BIN HIZUL (152770)
+ * 2. MUHAMMAD NUR HAFIZ BIN JAMAL (153451)
+ * 3. NUR LIANA BINTI SAMSUDIN (152513)
+ * 4. NORSYASYA BINTI MOHD NAZRI (153777)
+ * 
+ * 
+ */
 package application;
 
 // Import java and javaFX library
@@ -10,6 +20,7 @@ import javafx.stage.Stage;
 // main class
 public class HyperContraX extends Application{
 	
+	// Setting up the game environment.
 	@Override
 	public void start(Stage stage) throws IOException {
 		

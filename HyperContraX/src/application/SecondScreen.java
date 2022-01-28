@@ -53,6 +53,7 @@ public class SecondScreen extends Stage {
 	boolean gameEnd = false;
 	private GraphicsContext graphicsCtxt;
 	
+   // Declare Object.
 	Rocket user;
 	List<Shot> bullets;
 	List<Universe> galaxy;
@@ -208,6 +209,7 @@ public class SecondScreen extends Stage {
 			}
 		}
 
+		// Collision with enemies
 		public boolean colide(Rocket other) {
 			int d = distance(this.posX + size / 2, this.posY + size / 2, other.posX + other.size / 2,
 					other.posY + other.size / 2);
@@ -259,9 +261,9 @@ public class SecondScreen extends Stage {
 
 		// Bullet color and change when hit specific score.
 		public void draw() {
-			graphicsCtxt.setFill(Color.RED);
-			if (score >= 50 && score <= 70 || score >= 120) {
-				graphicsCtxt.setFill(Color.YELLOWGREEN);
+			graphicsCtxt.setFill(Color.YELLOWGREEN);
+			if (score >= 30 && score <= 60 || score >= 100) {
+				graphicsCtxt.setFill(Color.RED);
 				speed = 50;
 				graphicsCtxt.fillRect(posX - 5, posY - 10, size + 10, size + 30);
 			} else {

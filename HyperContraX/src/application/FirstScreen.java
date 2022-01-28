@@ -4,11 +4,16 @@ package application;
 // Import java and javaFX library
 import java.sql.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -73,6 +78,27 @@ public class FirstScreen implements Initializable{
 
     	}catch (SQLException e) {System.out.println(e);};
     }
+    
+    //This is the Guide screen linking from the Main screen
+    @FXML
+    void showGuide(ActionEvent event) throws IOException {
+    	
+    	// Load the FXML file from MainController.fxml
+        FXMLLoader fxmlLoader = new FXMLLoader(HyperContraX.class.getResource("GuideController.fxml"));
+        Parent root = fxmlLoader.load();
+        
+        fxmlLoader.getController();
+        Stage stage = new Stage();
+        
+        // Set the stage with the scene
+        stage.setScene(new Scene(root));
+        // Set the title of the scene
+        stage.setTitle("Game Guide");
+        // Show the stage to the viewer
+        stage.show();
+    }
+    
+    
     
     
 	@Override
