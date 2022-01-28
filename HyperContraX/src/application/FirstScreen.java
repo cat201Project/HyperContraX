@@ -2,26 +2,24 @@
 package application;
 
 // Import java and javaFX library
+import java.sql.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Scanner;
-
-//import java.io.IOException;
-
 import javafx.event.ActionEvent;
 
 
 public class FirstScreen implements Initializable{
+	
 	// Variable Declaration
+    @FXML
+    private Label Score;
+    
 	@FXML
     private Label HighScore;
 	
@@ -51,17 +49,29 @@ public class FirstScreen implements Initializable{
         stage.close();
     }
     
-    // This linking to the button that allow us to view the High score
+    // This linking to the button that allow user to view the High score
     @FXML
-    void PreviewHighScore(ActionEvent event) throws FileNotFoundException{
+    void previewScore(ActionEvent event) throws ClassNotFoundException{
     	
+    	Connection con;
+    	ResultSet rs;
+    	
+    	// Set up the database with mySQL
+    	try {
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+    		con = DriverManager.getConnection("jdbc:mysql://localhost/mysql", "root", "");
+    		Statement stmt = con.createStatement();
+    		
+    		// SELECT query
+            String q1 = "select name, score from highscore where score = (select max(score) from highscore)";
+            rs = stmt.executeQuery(q1);
+    		if(rs.next())
+    		{
+    			HighScore.setText(rs.getString(1));
+    			Score.setText(rs.getString(2));
+    		}
 
-    	// pass the path to the file as a parameter
-        File file = new File("C:\\Users\\nmnor\\eclipse-workspace\\NameScore.txt");
-        try (Scanner sc = new Scanner(file)) {
-			while (sc.hasNextLine())
-			  HighScore.setText(sc.nextLine());
-		}
+    	}catch (SQLException e) {System.out.println(e);};
     }
     
     

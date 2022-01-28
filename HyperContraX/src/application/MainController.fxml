@@ -6,16 +6,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(&quot;https://drive.google.com/uc?export=view&amp;id=1u6Bhx6NVax7gRy72y5OJSMFUOMaAKRU6&quot;);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FirstScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="633.0" style="-fx-background-image: url('https://drive.google.com/uc?export=view&amp;id=1u6Bhx6NVax7gRy72y5OJSMFUOMaAKRU6');" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FirstStage">
    <children>
-      <Label layoutX="132.0" layoutY="56.0" text="HYPER CONTRA X" textFill="WHITE">
+      <Label layoutX="142.0" layoutY="33.0" text="HYPER CONTRA X" textFill="WHITE">
          <font>
             <Font name="Berlin Sans FB Demi Bold" size="42.0" />
          </font>
       </Label>
-      <Button fx:id="Button_Play" layoutX="111.0" layoutY="270.0" mnemonicParsing="false" onAction="#ButtonPlay" prefHeight="25.0" prefWidth="86.0" text="PLAY" />
-      <Button fx:id="closedButton" layoutX="408.0" layoutY="270.0" mnemonicParsing="false" onAction="#ButtonExit" prefHeight="25.0" prefWidth="86.0" text="EXIT" />
-      <TextField fx:id="Player_Name" layoutX="164.0" layoutY="200.0" prefHeight="25.0" prefWidth="271.0" promptText="Player Name" />
+      <Button fx:id="Button_Play" layoutX="274.0" layoutY="245.0" mnemonicParsing="false" onAction="#ButtonPlay" prefHeight="25.0" prefWidth="86.0" text="PLAY" />
+      <Button fx:id="closedButton" layoutX="274.0" layoutY="291.0" mnemonicParsing="false" onAction="#ButtonExit" prefHeight="25.0" prefWidth="86.0" text="EXIT" />
+      <TextField fx:id="Player_Name" layoutX="178.0" layoutY="194.0" prefHeight="25.0" prefWidth="297.0" promptText="Player Name" />
+      <Button layoutX="273.0" layoutY="331.0" mnemonicParsing="false" onAction="#previewScore" prefHeight="25.0" prefWidth="86.0" text="High Score" />
+      <Label fx:id="HighScore" alignment="CENTER" layoutX="178.0" layoutY="146.0" prefHeight="25.0" prefWidth="172.0" text="Name" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Berlin Sans FB" size="16.0" />
+         </font></Label>
+      <Label fx:id="Score" alignment="CENTER" layoutX="380.0" layoutY="146.0" prefHeight="25.0" prefWidth="79.0" text="Score" textFill="WHITE">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="16.0" />
+         </font></Label>
    </children>
 </AnchorPane>
-

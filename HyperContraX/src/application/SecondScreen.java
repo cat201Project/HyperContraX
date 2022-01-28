@@ -1,13 +1,10 @@
 // This is the second screen application after starting the program from first screen.
 package application;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.stream.IntStream;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -63,18 +60,16 @@ public class SecondScreen extends Stage {
 
 	private double mouseX;
 	private int score;
+	private String playerName;
 	VBox y = new VBox();
 
-	// Connecting to mySQL database variable
-	Connection con;
-	PreparedStatement pst;
 
 	// To start the game.
 	SecondScreen(String name) {
 		y.getChildren();
 		Canvas canvas = new Canvas(WIDTH, HEIGHT);
 		gc = canvas.getGraphicsContext2D();
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> run(gc, name)));
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> run(gc)));
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.play();
 		canvas.setCursor(Cursor.MOVE);
@@ -85,9 +80,13 @@ public class SecondScreen extends Stage {
 			if (gameOver) {
 				gameOver = false;
 				extracted();
+				try {
+					PlayerHighScore(playerName,score);
+				} 
+				catch (Exception ex) {}
 			}
 		});
-		setup();
+		setup(name);
 		this.setScene(new Scene(new StackPane(canvas)));
 		this.setTitle("Space Invaders");
 		this.show();
@@ -99,17 +98,18 @@ public class SecondScreen extends Stage {
 	}
 
 	// Setup the game size object
-	private void setup() {
+	private void setup(String name) {
 		univ = new ArrayList<>();
 		shots = new ArrayList<>();
 		Bombs = new ArrayList<>();
 		player = new Rocket(WIDTH / 2, HEIGHT - PLAYER_SIZE, PLAYER_SIZE, PLAYER_IMG);
 		score = 0;
+		playerName = name;
 		IntStream.range(0, MAX_BOMBS).mapToObj(i -> this.newBomb()).forEach(Bombs::add);
 	}
 
 	// To run the graphic
-	private void run(GraphicsContext gc, String name) {
+	private void run(GraphicsContext gc) {
 		gc.setFill(Color.grayRgb(20));
 		gc.fillRect(0, 0, WIDTH, HEIGHT);
 		gc.setTextAlign(TextAlignment.CENTER);
@@ -166,11 +166,7 @@ public class SecondScreen extends Stage {
 			if (univ.get(i).posY > HEIGHT)
 				univ.remove(i);
 		}
-
-		try {
-			PlayerHighScore(name, score);
-		} catch (Exception ex) {
-		}
+		
 	}
 
 	// Player viewpoint
@@ -322,32 +318,34 @@ public class SecondScreen extends Stage {
 		return (int) Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
 	}
 
-	// JANGAN LUPA EDIT
-	public void PlayerHighScore(String name, int score2) {
+	// Save player name and score into the database 
+	public void PlayerHighScore (String name, int score2) throws ClassNotFoundException{
+		
+		String stdScore = String.valueOf(score2);
 
-		File file = new File("C:\\Users\\nmnor\\eclipse-workspace\\NameScore.txt");
-		Scanner input;
+        try
+        {
+        	
+        	Class.forName("com.mysql.cj.jdbc.Driver");
+        	// Create a connection to the localhost of the database
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost/mysql", "root", "");
+			
+			// Create table if the table does not exist in the database mysql
+			String sqlCreate = "CREATE TABLE IF NOT EXISTS highScore"
+            + "  (id           INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,"
+            + "   name            VARCHAR(20) NOT NULL,"
+            + "   score          INTEGER NOT NULL)";
 
-		try {
-			input = new Scanner(file);
-			while (input.hasNext()) {
-				String nameInFile = input.next();
-				int scoreInFile = input.nextInt();
-
-				if (scoreInFile > score2) {
-					try (PrintWriter out = new PrintWriter(file);) {
-						out.println(nameInFile + " " + scoreInFile);
-					}
-				}
-				if (scoreInFile <= score2) {
-					try (PrintWriter out = new PrintWriter(file);) {
-						out.println(name + " " + score2);
-					}
-				}
-			}
-			input.close();
-		} catch (FileNotFoundException e) {
-		}
-
+			Statement stmt = con.createStatement();
+			stmt.execute(sqlCreate);
+             
+			PreparedStatement pst = con.prepareStatement("insert into highscore(name,score)values(?,?)");
+			pst.setString(1, name);
+			pst.setString(2, stdScore);
+			pst.executeUpdate();
+            con.close();
+        }
+        catch(Exception e){}
+		  
 	}
 }
