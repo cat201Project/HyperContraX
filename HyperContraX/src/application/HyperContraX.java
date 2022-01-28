@@ -25,7 +25,7 @@ public class HyperContraX extends Application{
         stage.show();
     }
     
-
+	// To launch to the first screen.	
 	public static void main(String[] args) {
 		launch();
 	}
