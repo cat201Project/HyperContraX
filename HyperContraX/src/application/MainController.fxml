@@ -8,22 +8,38 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="633.0" style="-fx-background-image: url('https://drive.google.com/uc?export=view&amp;id=1u6Bhx6NVax7gRy72y5OJSMFUOMaAKRU6');" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FirstScreen">
    <children>
-      <Label layoutX="142.0" layoutY="33.0" text="HYPER CONTRA X" textFill="WHITE">
+      <Label layoutX="110.0" layoutY="48.0" prefHeight="91.0" prefWidth="433.0" text="HYPER CONTRA X" textFill="#fffefe">
          <font>
-            <Font name="Berlin Sans FB Demi Bold" size="42.0" />
+            <Font name="Berlin Sans FB Demi Bold" size="49.0" />
          </font>
       </Label>
-      <Button fx:id="Button_Play" layoutX="274.0" layoutY="245.0" mnemonicParsing="false" onAction="#ButtonPlay" prefHeight="25.0" prefWidth="86.0" text="PLAY" />
-      <Button fx:id="closedButton" layoutX="274.0" layoutY="291.0" mnemonicParsing="false" onAction="#ButtonExit" prefHeight="25.0" prefWidth="86.0" text="EXIT" />
-      <TextField fx:id="Player_Name" layoutX="178.0" layoutY="194.0" prefHeight="25.0" prefWidth="297.0" promptText="Player Name" />
-      <Button layoutX="273.0" layoutY="331.0" mnemonicParsing="false" onAction="#previewScore" prefHeight="25.0" prefWidth="86.0" text="High Score" />
+      <Button fx:id="Button_Play" layoutX="262.0" layoutY="246.0" mnemonicParsing="false" onAction="#ButtonPlay" prefHeight="25.0" prefWidth="109.0" text="PLAY">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="14.0" />
+         </font></Button>
+      <Button fx:id="closedButton" layoutX="262.0" layoutY="353.0" mnemonicParsing="false" onAction="#ButtonExit" prefHeight="25.0" prefWidth="109.0" text="EXIT">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="14.0" />
+         </font></Button>
+      <TextField fx:id="Player_Name" layoutX="178.0" layoutY="194.0" prefHeight="25.0" prefWidth="297.0" promptText="Player Name">
+         <font>
+            <Font size="15.0" />
+         </font></TextField>
+      <Button layoutX="262.0" layoutY="319.0" mnemonicParsing="false" onAction="#previewScore" prefHeight="25.0" prefWidth="109.0" text="HIGH SCORE">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="14.0" />
+         </font></Button>
       <Label fx:id="HighScore" alignment="CENTER" layoutX="178.0" layoutY="146.0" prefHeight="25.0" prefWidth="172.0" text="Name" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font name="Berlin Sans FB" size="16.0" />
+            <Font name="Berlin Sans FB" size="20.0" />
          </font></Label>
-      <Label fx:id="Score" alignment="CENTER" layoutX="380.0" layoutY="146.0" prefHeight="25.0" prefWidth="79.0" text="Score" textFill="WHITE">
+      <Label fx:id="Score" alignment="CENTER" layoutX="361.0" layoutY="146.0" prefHeight="25.0" prefWidth="79.0" text="Score" textFill="WHITE">
          <font>
-            <Font name="Berlin Sans FB Demi Bold" size="16.0" />
+            <Font name="Berlin Sans FB Demi Bold" size="20.0" />
          </font></Label>
+      <Button layoutX="262.0" layoutY="284.0" mnemonicParsing="false" onAction="#showGuide" prefHeight="25.0" prefWidth="109.0" text="GUIDE">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="14.0" />
+         </font></Button>
    </children>
 </AnchorPane>
