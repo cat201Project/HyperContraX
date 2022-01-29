@@ -8,11 +8,11 @@ import javafx.stage.Stage;
 
 public class GuideScreen {
 
-	//Button to main
+	// Button to main
 	@FXML
     private Button buttonMain;
 	
-	//When clicked, return back to main screen
+	// When clicked, return back to main screen
     @FXML
     void exitGuide(ActionEvent event) {
     	// Close stage after button clicked

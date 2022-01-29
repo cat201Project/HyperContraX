@@ -13,7 +13,7 @@
             <Font name="Berlin Sans FB Demi Bold" size="49.0" />
          </font>
       </Label>
-      <Button fx:id="Button_Play" layoutX="262.0" layoutY="246.0" mnemonicParsing="false" onAction="#ButtonPlay" prefHeight="25.0" prefWidth="109.0" text="PLAY">
+      <Button fx:id="buttonPlay" layoutX="262.0" layoutY="246.0" mnemonicParsing="false" onAction="#ButtonPlay" prefHeight="25.0" prefWidth="109.0" text="PLAY">
          <font>
             <Font name="Berlin Sans FB Demi Bold" size="14.0" />
          </font></Button>
@@ -21,23 +21,23 @@
          <font>
             <Font name="Berlin Sans FB Demi Bold" size="14.0" />
          </font></Button>
-      <TextField fx:id="Player_Name" layoutX="178.0" layoutY="194.0" prefHeight="25.0" prefWidth="297.0" promptText="Player Name">
+      <TextField fx:id="playerName" layoutX="178.0" layoutY="194.0" prefHeight="25.0" prefWidth="297.0" promptText="Player Name">
          <font>
             <Font size="15.0" />
          </font></TextField>
-      <Button layoutX="262.0" layoutY="319.0" mnemonicParsing="false" onAction="#previewScore" prefHeight="25.0" prefWidth="109.0" text="HIGH SCORE">
+      <Button layoutX="262.0" layoutY="319.0" mnemonicParsing="false" onAction="#PreviewScore" prefHeight="25.0" prefWidth="109.0" text="HIGH SCORE">
          <font>
             <Font name="Berlin Sans FB Demi Bold" size="14.0" />
          </font></Button>
-      <Label fx:id="HighScore" alignment="CENTER" layoutX="178.0" layoutY="146.0" prefHeight="25.0" prefWidth="172.0" text="Name" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="highScoreName" alignment="CENTER" layoutX="178.0" layoutY="146.0" prefHeight="25.0" prefWidth="172.0" text="Name" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Berlin Sans FB" size="20.0" />
          </font></Label>
-      <Label fx:id="Score" alignment="CENTER" layoutX="361.0" layoutY="146.0" prefHeight="25.0" prefWidth="79.0" text="Score" textFill="WHITE">
+      <Label fx:id="score" alignment="CENTER" layoutX="361.0" layoutY="146.0" prefHeight="25.0" prefWidth="79.0" text="Score" textFill="WHITE">
          <font>
             <Font name="Berlin Sans FB Demi Bold" size="20.0" />
          </font></Label>
-      <Button layoutX="262.0" layoutY="284.0" mnemonicParsing="false" onAction="#showGuide" prefHeight="25.0" prefWidth="109.0" text="GUIDE">
+      <Button layoutX="262.0" layoutY="284.0" mnemonicParsing="false" onAction="#ShowGuide" prefHeight="25.0" prefWidth="109.0" text="GUIDE">
          <font>
             <Font name="Berlin Sans FB Demi Bold" size="14.0" />
          </font></Button>
